@@ -64,7 +64,7 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 - [x] Identifikasi kolom identifier yang akan dibuang (Flow ID, Src IP, Dst IP, Timestamp, dll).
 - [x] Identifikasi kandidat fitur quasi-constant (variance sangat rendah).
 
-**Deliverable:** notebook/report singkat EDA + daftar final kolom yang dipakai (target 67 fitur numerik).
+**Deliverable:** notebook/report singkat EDA + daftar final kolom yang dipakai (target 69 fitur numerik).
 
 **Acceptance:** distribusi kelas & jumlah fitur yang dihasilkan cocok dengan Tabel 3.1/3.2 proposal (atau terdokumentasi kalau berbeda).
 
@@ -83,7 +83,7 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
   - **Stratified split 80:20** (train/test) — split dulu sebelum normalisasi.
   - Fit `MinMaxScaler` HANYA di data train, lalu transform train & test dengan scaler yang sama.
 - [ ] Simpan hasil: `data/processed/X_train.npy`, `X_test.npy`, `y_train.npy`, `y_test.npy`, serta scaler (`joblib`) dan label encoder.
-- [ ] Unit test kecil: pastikan tidak ada NaN/inf tersisa, jumlah fitur akhir = 67, proporsi kelas train/test mendekati proporsi asli (stratifikasi berhasil).
+- [ ] Unit test kecil: pastikan tidak ada NaN/inf tersisa, jumlah fitur akhir = 69, proporsi kelas train/test mendekati proporsi asli (stratifikasi berhasil).
 
 **Deliverable:** pipeline preprocessing reproducible + artefak tersimpan di `data/processed/`.
 
@@ -96,7 +96,7 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 **Tujuan:** bangun & latih Autoencoder sesuai arsitektur Tabel 3.4 / Gambar 3.2.
 
 - [ ] `src/autoencoder.py`:
-  - Arsitektur: Input(67) → Dense(64, ReLU) → Dense(32, ReLU) → Latent Dense(16) → Dense(32, ReLU) → Dense(64, ReLU) → Output(67, Sigmoid).
+  - Arsitektur: Input(69) → Dense(64, ReLU) → Dense(32, ReLU) → Latent Dense(16) → Dense(32, ReLU) → Dense(64, ReLU) → Output(69, Sigmoid).
   - Loss: MSE, Optimizer: Adam.
   - Training hanya pakai `X_train` (normalized), dengan validation split internal untuk memantau overfitting.
   - Simpan training history (loss curve) → `results/figures/ae_loss_curve.png`.
@@ -199,7 +199,7 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
   - H1: preprocessing yang benar (split sebelum normalisasi) mencegah data leakage — verifikasi lewat metodologi, bukan angka.
   - H2: latent representation Autoencoder cukup menyimpan pola antar kelas — verifikasi lewat performa LightGBM di atas latent vs (opsional) baseline tanpa Autoencoder.
   - H3: skenario imbalance handling memengaruhi recall/F1 kelas minoritas — verifikasi lewat Tabel perbandingan Phase 7.
-- [ ] (Opsional, kalau supervisor minta pembanding) tambahkan baseline: LightGBM langsung di 67 fitur asli (tanpa Autoencoder) untuk membuktikan manfaat reduksi dimensi.
+- [ ] (Opsional, kalau supervisor minta pembanding) tambahkan baseline: LightGBM langsung di 69 fitur asli (tanpa Autoencoder) untuk membuktikan manfaat reduksi dimensi.
 
 **Deliverable:** draft bagian hasil & pembahasan siap ditulis di laporan final.
 
