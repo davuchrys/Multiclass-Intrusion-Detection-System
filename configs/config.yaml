@@ -18,7 +18,7 @@ data:
   split_strategy: stratified
   expected_rows: 5351760
   expected_total_columns: 85
-  expected_feature_count: 67
+  expected_feature_count: 69
   expected_num_classes: 10
   identifier_columns:
     - Flow ID
@@ -36,11 +36,9 @@ data:
     - ECE Flag Cnt
     - Fwd Blk Rate Avg
     - Fwd Byts/b Avg
-    - Fwd PSH Flags
     - Fwd Pkts/b Avg
     - Fwd URG Flags
     - Label
-    - RST Flag Cnt
     - Subflow Bwd Pkts
     - URG Flag Cnt
   feature_columns:
@@ -86,6 +84,7 @@ data:
     - Fwd Pkt Len Min
     - Fwd Pkt Len Std
     - Fwd Pkts/s
+    - Fwd PSH Flags
     - Fwd Seg Size Avg
     - Fwd Seg Size Min
     - Idle Max
@@ -102,6 +101,7 @@ data:
     - Pkt Len Var
     - Pkt Size Avg
     - Protocol
+    - RST Flag Cnt
     - SYN Flag Cnt
     - Src Port
     - Subflow Bwd Byts
@@ -141,7 +141,7 @@ preprocessing:
 
 autoencoder:
   framework: torch
-  input_dim: 67
+  input_dim: 69
   hidden_dims:
     - 64
     - 32
@@ -149,7 +149,7 @@ autoencoder:
   decoder_dims:
     - 32
     - 64
-  output_dim: 67
+  output_dim: 69
   activation: relu
   output_activation: sigmoid
   loss: mse
