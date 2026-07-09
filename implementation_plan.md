@@ -95,13 +95,13 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 
 **Tujuan:** bangun & latih Autoencoder sesuai arsitektur Tabel 3.4 / Gambar 3.2.
 
-- [ ] `src/autoencoder.py`:
+- [x] `src/autoencoder.py`:
   - Arsitektur: Input(69) → Dense(64, ReLU) → Dense(32, ReLU) → Latent Dense(16) → Dense(32, ReLU) → Dense(64, ReLU) → Output(69, Sigmoid).
   - Loss: MSE, Optimizer: Adam.
   - Training hanya pakai `X_train` (normalized), dengan validation split internal untuk memantau overfitting.
   - Simpan training history (loss curve) → `results/figures/ae_loss_curve.png`.
   - Simpan model terlatih (`models/autoencoder.h5` atau `.pt`) dan encoder terpisah untuk reuse di Phase 4.
-- [ ] Evaluasi kualitas rekonstruksi: reconstruction error rata-rata di train vs test (cek tidak overfit parah).
+- [x] Evaluasi kualitas rekonstruksi: reconstruction error rata-rata di train vs test (cek tidak overfit parah).
 
 **Deliverable:** model Autoencoder terlatih + kurva loss + file model tersimpan.
 
