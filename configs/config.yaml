@@ -1,0 +1,176 @@
+project:
+  name: multiclass-intrusion-detection-cic-ton-iot
+  random_state: 42
+
+paths:
+  raw_dataset: data/raw/CIC-ToN-IoT.csv
+  raw_feature_description: data/raw/CICFLowMeter_Features.csv
+  interim_dir: data/interim
+  processed_dir: data/processed
+  models_dir: models
+  metrics_dir: results/metrics
+  figures_dir: results/figures
+
+data:
+  label_column: Attack
+  secondary_label_column: Label
+  test_size: 0.2
+  split_strategy: stratified
+  expected_rows: 5351760
+  expected_total_columns: 85
+  expected_feature_count: 67
+  expected_num_classes: 10
+  identifier_columns:
+    - Flow ID
+    - Src IP
+    - Dst IP
+    - Timestamp
+  drop_columns:
+    - Flow ID
+    - Src IP
+    - Dst IP
+    - Timestamp
+    - Bwd PSH Flags
+    - Bwd URG Flags
+    - CWE Flag Count
+    - ECE Flag Cnt
+    - Fwd Blk Rate Avg
+    - Fwd Byts/b Avg
+    - Fwd PSH Flags
+    - Fwd Pkts/b Avg
+    - Fwd URG Flags
+    - Label
+    - RST Flag Cnt
+    - Subflow Bwd Pkts
+    - URG Flag Cnt
+  feature_columns:
+    - ACK Flag Cnt
+    - Active Max
+    - Active Mean
+    - Active Min
+    - Active Std
+    - Bwd Blk Rate Avg
+    - Bwd Byts/b Avg
+    - Bwd Header Len
+    - Bwd IAT Max
+    - Bwd IAT Mean
+    - Bwd IAT Min
+    - Bwd IAT Std
+    - Bwd IAT Tot
+    - Bwd Pkt Len Max
+    - Bwd Pkt Len Mean
+    - Bwd Pkt Len Min
+    - Bwd Pkt Len Std
+    - Bwd Pkts/b Avg
+    - Bwd Pkts/s
+    - Bwd Seg Size Avg
+    - Down/Up Ratio
+    - Dst Port
+    - FIN Flag Cnt
+    - Flow Byts/s
+    - Flow Duration
+    - Flow IAT Max
+    - Flow IAT Mean
+    - Flow IAT Min
+    - Flow IAT Std
+    - Flow Pkts/s
+    - Fwd Act Data Pkts
+    - Fwd Header Len
+    - Fwd IAT Max
+    - Fwd IAT Mean
+    - Fwd IAT Min
+    - Fwd IAT Std
+    - Fwd IAT Tot
+    - Fwd Pkt Len Max
+    - Fwd Pkt Len Mean
+    - Fwd Pkt Len Min
+    - Fwd Pkt Len Std
+    - Fwd Pkts/s
+    - Fwd Seg Size Avg
+    - Fwd Seg Size Min
+    - Idle Max
+    - Idle Mean
+    - Idle Min
+    - Idle Std
+    - Init Bwd Win Byts
+    - Init Fwd Win Byts
+    - PSH Flag Cnt
+    - Pkt Len Max
+    - Pkt Len Mean
+    - Pkt Len Min
+    - Pkt Len Std
+    - Pkt Len Var
+    - Pkt Size Avg
+    - Protocol
+    - SYN Flag Cnt
+    - Src Port
+    - Subflow Bwd Byts
+    - Subflow Fwd Byts
+    - Subflow Fwd Pkts
+    - Tot Bwd Pkts
+    - Tot Fwd Pkts
+    - TotLen Bwd Pkts
+    - TotLen Fwd Pkts
+  class_mapping:
+    Benign: 0
+    Backdoor: 1
+    DDoS: 2
+    DoS: 3
+    Injection: 4
+    MITM: 5
+    Password: 6
+    Ransomware: 7
+    Scanning: 8
+    XSS: 9
+  raw_label_aliases:
+    benign: Benign
+    backdoor: Backdoor
+    ddos: DDoS
+    dos: DoS
+    injection: Injection
+    mitm: MITM
+    password: Password
+    ransomware: Ransomware
+    scanning: Scanning
+    xss: XSS
+
+preprocessing:
+  scaler: minmax
+  quasi_constant_threshold: 0.999
+  invalid_value_strategy: drop_rows
+
+autoencoder:
+  framework: torch
+  input_dim: 67
+  hidden_dims:
+    - 64
+    - 32
+  latent_dim: 16
+  decoder_dims:
+    - 32
+    - 64
+  output_dim: 67
+  activation: relu
+  output_activation: sigmoid
+  loss: mse
+  optimizer: adam
+  learning_rate: 0.001
+  batch_size: 4096
+  epochs: 50
+  validation_split: 0.1
+
+lightgbm:
+  objective: multiclass
+  num_class: 10
+  learning_rate: 0.05
+  n_estimators: 200
+  num_leaves: 31
+  max_depth: -1
+  random_state: 42
+
+imbalance:
+  scenarios:
+    - s1_none
+    - s2_class_weight
+    - s3_upsampling
+    - s4_downsampling

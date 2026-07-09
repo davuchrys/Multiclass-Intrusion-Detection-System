@@ -1,0 +1,13 @@
+pandas>=2.2
+numpy>=1.26
+scikit-learn>=1.4
+lightgbm>=4.5
+torch>=2.4
+imbalanced-learn>=0.12
+matplotlib>=3.8
+seaborn>=0.13
+PyYAML>=6.0
+joblib>=1.4
+jupyter>=1.1
+ipykernel>=6.29
+pypdf>=6.0
