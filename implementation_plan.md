@@ -113,9 +113,9 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 
 **Tujuan:** hasilkan representasi laten 16 dimensi untuk train & test (proposal 3.5, Tabel 3.5).
 
-- [ ] `src/latent_extraction.py`: load encoder dari Phase 3, transform `X_train`/`X_test` → `Z_train`, `Z_test` (masing-masing 16 fitur).
-- [ ] Simpan `Z_train.npy`, `Z_test.npy` di `data/processed/`.
-- [ ] Sanity check: shape sesuai (n_samples, 16), tidak ada NaN, rentang nilai masuk akal (karena aktivasi ReLU di latent layer → non-negatif, cek konsisten dengan ekspektasi).
+- [x] `src/latent_extraction.py`: load encoder dari Phase 3, transform `X_train`/`X_test` → `Z_train`, `Z_test` (masing-masing 16 fitur).
+- [x] Simpan `Z_train.npy`, `Z_test.npy` di `data/processed/`.
+- [x] Sanity check: shape sesuai (n_samples, 16), tidak ada NaN, rentang nilai masuk akal (karena aktivasi ReLU di latent layer → non-negatif, cek konsisten dengan ekspektasi).
 
 **Deliverable:** latent features siap pakai untuk semua skenario di Phase 5–6.
 
