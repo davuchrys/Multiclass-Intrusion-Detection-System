@@ -74,7 +74,7 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 
 **Tujuan:** dataset bersih, siap dipakai model, tanpa data leakage (proposal 3.3, Tabel 3.3).
 
-- [ ] `src/preprocessing.py`:
+- [x] `src/preprocessing.py`:
   - Drop kolom identifier/metadata (Flow ID, Src IP, Dst IP, Timestamp).
   - Drop fitur quasi-constant.
   - Konversi `inf`/`-inf` → NaN, lalu handle missing value (drop baris jika sedikit, drop kolom jika parah).
@@ -82,8 +82,8 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
   - Label encoding kolom `Attack` → index numerik (ikuti mapping Tabel 2.5).
   - **Stratified split 80:20** (train/test) — split dulu sebelum normalisasi.
   - Fit `MinMaxScaler` HANYA di data train, lalu transform train & test dengan scaler yang sama.
-- [ ] Simpan hasil: `data/processed/X_train.npy`, `X_test.npy`, `y_train.npy`, `y_test.npy`, serta scaler (`joblib`) dan label encoder.
-- [ ] Unit test kecil: pastikan tidak ada NaN/inf tersisa, jumlah fitur akhir = 69, proporsi kelas train/test mendekati proporsi asli (stratifikasi berhasil).
+- [x] Simpan hasil: `data/processed/X_train.npy`, `X_test.npy`, `y_train.npy`, `y_test.npy`, serta scaler (`joblib`) dan label encoder.
+- [x] Unit test kecil: pastikan tidak ada NaN/inf tersisa, jumlah fitur akhir = 69, proporsi kelas train/test mendekati proporsi asli (stratifikasi berhasil).
 
 **Deliverable:** pipeline preprocessing reproducible + artefak tersimpan di `data/processed/`.
 
