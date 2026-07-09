@@ -249,6 +249,38 @@ def write_split_distribution(
     return output_path
 
 
+def validate_stratified_distribution(
+    y_train: np.ndarray,
+    y_test: np.ndarray,
+    class_mapping: dict[str, int],
+    tolerance_percentage_points: float = 0.05,
+) -> float:
+    """Assert that train/test class percentages remain close after stratified splitting."""
+    train_total = y_train.shape[0]
+    test_total = y_test.shape[0]
+    max_delta = 0.0
+
+    for class_index in sorted(class_mapping.values()):
+        train_count = int((y_train == class_index).sum())
+        test_count = int((y_test == class_index).sum())
+        train_percentage = train_count / train_total * 100
+        test_percentage = test_count / test_total * 100
+        delta = abs(train_percentage - test_percentage)
+        max_delta = max(max_delta, delta)
+
+        if delta > tolerance_percentage_points:
+            raise ValueError(
+                "Stratified split class percentage drift exceeded tolerance: "
+                f"class_index={class_index}, "
+                f"train={train_percentage:.6f}%, "
+                f"test={test_percentage:.6f}%, "
+                f"delta={delta:.6f} percentage points, "
+                f"tolerance={tolerance_percentage_points:.6f}"
+            )
+
+    return max_delta
+
+
 def validate_processed_arrays(
     x_train_path: Path,
     x_test_path: Path,
@@ -350,6 +382,11 @@ def preprocess_dataset(
         y_test_split,
         class_mapping,
     )
+    max_split_percentage_delta = validate_stratified_distribution(
+        y_train_split,
+        y_test_split,
+        class_mapping,
+    )
     validation = validate_processed_arrays(
         x_train_path,
         x_test_path,
@@ -369,6 +406,7 @@ def preprocess_dataset(
         "test_size": test_size,
         "random_state": random_state,
         "scaler_fit_scope": "train_only",
+        "max_split_percentage_delta": max_split_percentage_delta,
         "split_distribution_path": str(split_distribution_path),
         **validation,
     }

@@ -34,6 +34,9 @@ results/metrics/*
 *.tar
 *.tar.gz
 
+# Local duplicate proposal exports
+Multiclass_Network_Intrusion_Classification_on_the_CIC_ToN_IoT_Dataset_Using_Autoencoder_and_LightGBM (1)/
+
 # OS/editor
 .DS_Store
 Thumbs.db
