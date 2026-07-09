@@ -56,13 +56,13 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 
 **Tujuan:** memahami struktur dataset sebelum diproses (sesuai proposal 3.1.a & 3.2).
 
-- [ ] `src/data_loading.py`: fungsi load CSV dataset CIC-ToN-IoT.
-- [ ] Cek jumlah baris/kolom (ekspektasi ~5,351,760 baris, 85 kolom).
-- [ ] Inspeksi tipe data tiap kolom, jumlah missing value, jumlah nilai unik.
-- [ ] Verifikasi kolom label `Attack` dan daftar 10 kelas (Benign, Backdoor, DDoS, DoS, Injection, MITM, Password, Ransomware, Scanning, XSS).
-- [ ] Hitung & simpan distribusi kelas (harus mendekati Tabel 3.2 di proposal) → `results/metrics/class_distribution.csv`.
-- [ ] Identifikasi kolom identifier yang akan dibuang (Flow ID, Src IP, Dst IP, Timestamp, dll).
-- [ ] Identifikasi kandidat fitur quasi-constant (variance sangat rendah).
+- [x] `src/data_loading.py`: fungsi load CSV dataset CIC-ToN-IoT.
+- [x] Cek jumlah baris/kolom (ekspektasi ~5,351,760 baris, 85 kolom).
+- [x] Inspeksi tipe data tiap kolom, jumlah missing value, jumlah nilai unik.
+- [x] Verifikasi kolom label `Attack` dan daftar 10 kelas (Benign, Backdoor, DDoS, DoS, Injection, MITM, Password, Ransomware, Scanning, XSS).
+- [x] Hitung & simpan distribusi kelas (harus mendekati Tabel 3.2 di proposal) → `results/metrics/class_distribution.csv`.
+- [x] Identifikasi kolom identifier yang akan dibuang (Flow ID, Src IP, Dst IP, Timestamp, dll).
+- [x] Identifikasi kandidat fitur quasi-constant (variance sangat rendah).
 
 **Deliverable:** notebook/report singkat EDA + daftar final kolom yang dipakai (target 67 fitur numerik).
 

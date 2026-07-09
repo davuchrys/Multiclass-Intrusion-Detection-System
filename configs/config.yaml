@@ -136,7 +136,7 @@ data:
 
 preprocessing:
   scaler: minmax
-  quasi_constant_threshold: 0.999
+  quasi_constant_threshold: 0.99
   invalid_value_strategy: drop_rows
 
 autoencoder:
