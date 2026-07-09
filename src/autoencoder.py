@@ -82,10 +82,11 @@ def batch_tensor(block: np.ndarray, device: torch.device) -> torch.Tensor:
 def run_epoch(
     model: Autoencoder,
     data: np.ndarray,
-    validation_mask: np.ndarray,
+    row_indices: np.ndarray,
     batch_size: int,
     device: torch.device,
     optimizer: torch.optim.Optimizer | None = None,
+    rng: np.random.Generator | None = None,
 ) -> float:
     """Run one train or validation epoch and return average MSE."""
     is_training = optimizer is not None
@@ -93,15 +94,21 @@ def run_epoch(
     total_loss = 0.0
     total_values = 0
     criterion = nn.MSELoss(reduction="sum")
+    if row_indices.size == 0:
+        raise ValueError("No rows were available for this epoch.")
 
-    for start in range(0, data.shape[0], batch_size):
-        end = min(start + batch_size, data.shape[0])
-        local_validation_mask = validation_mask[start:end]
-        local_mask = ~local_validation_mask if is_training else local_validation_mask
-        if not local_mask.any():
-            continue
+    if is_training:
+        if rng is None:
+            raise ValueError("A random generator is required for shuffled training epochs.")
+        epoch_indices = rng.permutation(row_indices)
+    else:
+        epoch_indices = row_indices
 
-        inputs = batch_tensor(data[start:end][local_mask], device)
+    for start in range(0, epoch_indices.shape[0], batch_size):
+        end = min(start + batch_size, epoch_indices.shape[0])
+        batch_indices = epoch_indices[start:end]
+        # Batch membership is shuffled, while sorting improves memmap read locality.
+        inputs = batch_tensor(data[np.sort(batch_indices)], device)
         if is_training:
             optimizer.zero_grad(set_to_none=True)
 
@@ -249,31 +256,49 @@ def train_autoencoder(
     model = Autoencoder(input_dim=input_dim, latent_dim=latent_dim).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=float(ae_config["learning_rate"]))
     validation_mask = make_validation_mask(x_train.shape[0], validation_split, random_state)
+    train_indices = np.flatnonzero(~validation_mask)
+    validation_indices = np.flatnonzero(validation_mask)
+    epoch_rng = np.random.default_rng(random_state + 1)
 
     history: list[dict[str, float]] = []
+    best_epoch = 0
+    best_val_loss = float("inf")
+    best_state_dict: dict[str, torch.Tensor] | None = None
     for epoch in range(1, effective_epochs + 1):
         train_loss = run_epoch(
             model,
             x_train,
-            validation_mask,
+            train_indices,
             effective_batch_size,
             device,
             optimizer=optimizer,
+            rng=epoch_rng,
         )
         val_loss = run_epoch(
             model,
             x_train,
-            validation_mask,
+            validation_indices,
             effective_batch_size,
             device,
             optimizer=None,
         )
+        if val_loss < best_val_loss:
+            best_epoch = epoch
+            best_val_loss = val_loss
+            best_state_dict = {
+                key: value.detach().cpu().clone()
+                for key, value in model.state_dict().items()
+            }
         row = {"epoch": epoch, "train_loss": train_loss, "val_loss": val_loss}
         history.append(row)
         print(
             f"Epoch {epoch:03d}/{effective_epochs} - "
             f"train_loss={train_loss:.8f} - val_loss={val_loss:.8f}"
         )
+
+    if best_state_dict is None:
+        raise ValueError("No best Autoencoder checkpoint was selected.")
+    model.load_state_dict(best_state_dict)
 
     history_path = metrics_dir / "autoencoder_history.csv"
     curve_path = figures_dir / "ae_loss_curve.png"
@@ -301,6 +326,11 @@ def train_autoencoder(
         "device": str(device),
         "input_dim": input_dim,
         "latent_dim": latent_dim,
+        "training_batch_order": "reshuffled_each_epoch",
+        "model_selection": "best_validation_loss",
+        "best_epoch": best_epoch,
+        "best_val_loss": best_val_loss,
+        "reconstruction_scope": "full_train_array_including_internal_validation",
         "autoencoder_path": str(autoencoder_path),
         "encoder_path": str(encoder_path),
         "history_path": str(history_path),
