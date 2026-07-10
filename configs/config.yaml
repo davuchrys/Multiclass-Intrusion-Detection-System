@@ -174,3 +174,6 @@ imbalance:
     - s2_class_weight
     - s3_upsampling
     - s4_downsampling
+  upsampling_target: majority
+  downsampling_target: minority
+  batch_size: 250000

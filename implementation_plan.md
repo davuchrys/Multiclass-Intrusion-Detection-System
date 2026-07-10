@@ -127,13 +127,13 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 
 **Tujuan:** implementasi S1–S4 sesuai proposal 3.6 (Tabel 3.6) — hanya diterapkan ke data **training**.
 
-- [ ] `src/imbalance.py` dengan 4 fungsi/mode:
+- [x] `src/imbalance.py` dengan 4 fungsi/mode:
   - **S1 — No handling:** pakai `Z_train`, `y_train` apa adanya (baseline).
   - **S2 — Class weight:** hitung `w_c = n / (C * n_c)` (persamaan 2.8), dipakai sebagai parameter `class_weight`/`sample_weight` saat training LightGBM (bukan mengubah data).
   - **S3 — Upsampling:** perbanyak sample kelas minoritas di `Z_train`/`y_train` (mis. random oversampling atau SMOTE via `imbalanced-learn`).
   - **S4 — Downsampling:** kurangi sample kelas mayoritas di `Z_train`/`y_train`.
-- [ ] Pastikan `Z_test`/`y_test` **tidak pernah** disentuh oleh fungsi-fungsi ini.
-- [ ] Log distribusi kelas sebelum/sesudah tiap skenario → `results/metrics/imbalance_distribution_{scenario}.csv`.
+- [x] Pastikan `Z_test`/`y_test` **tidak pernah** disentuh oleh fungsi-fungsi ini.
+- [x] Log distribusi kelas sebelum/sesudah tiap skenario → `results/metrics/imbalance_distribution_{scenario}.csv`.
 
 **Deliverable:** fungsi reusable yang menerima skenario sebagai parameter dan mengembalikan data training yang sudah diperlakukan (atau sample_weight untuk S2).
 
