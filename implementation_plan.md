@@ -145,12 +145,12 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 
 **Tujuan:** latih LightGBM multiclass di atas latent features, untuk tiap skenario imbalance (proposal 3.7, Tabel 3.7).
 
-- [ ] `src/classifier.py`:
+- [x] `src/classifier.py`:
   - Konfigurasi dasar: `objective='multiclass'`, `num_class=10`, `random_state=42`, `learning_rate`, `n_estimators`, `num_leaves=31`, dst. (bisa ditaruh di `configs/config.yaml`).
   - Fungsi `train_lightgbm(Z_train, y_train, scenario, sample_weight=None)`.
   - Fungsi `predict(model, Z_test)` → `y_pred`.
   - Simpan model per skenario → `models/lgbm_{scenario}.txt`.
-- [ ] Jalankan training untuk keempat skenario (S1–S4) secara terpisah, simpan model & prediksi masing-masing.
+- [x] Jalankan training untuk keempat skenario (S1–S4) secara terpisah, simpan model & prediksi masing-masing.
 
 **Deliverable:** 4 model LightGBM terlatih (satu per skenario) + hasil prediksi `y_pred` per skenario tersimpan.
 
