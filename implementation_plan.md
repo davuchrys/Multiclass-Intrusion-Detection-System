@@ -162,12 +162,12 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 
 **Tujuan:** evaluasi & bandingkan performa antar skenario (proposal 3.8, Tabel 3.8; Bab II.4).
 
-- [ ] `src/evaluation.py`:
+- [x] `src/evaluation.py`:
   - Hitung accuracy, macro precision, macro recall, macro F1-score (pakai `sklearn.metrics`).
   - Generate confusion matrix (10x10) + visualisasi heatmap → `results/figures/confusion_matrix_{scenario}.png`.
   - Simpan classification report lengkap per kelas → `results/metrics/report_{scenario}.json`.
-- [ ] Buat tabel ringkasan perbandingan S1 vs S2 vs S3 vs S4 (accuracy, macro P/R/F1) → `results/metrics/summary_comparison.csv`.
-- [ ] Analisis kualitatif: kelas mana yang paling terbantu/tidak terbantu oleh tiap skenario imbalance handling (fokus ke kelas minoritas: DoS, DDoS, MITM, Ransomware, Backdoor).
+- [x] Buat tabel ringkasan perbandingan S1 vs S2 vs S3 vs S4 (accuracy, macro P/R/F1) → `results/metrics/summary_comparison.csv`.
+- [x] Analisis kualitatif: kelas mana yang paling terbantu/tidak terbantu oleh tiap skenario imbalance handling (fokus ke kelas minoritas: DoS, DDoS, MITM, Ransomware, Backdoor).
 
 **Deliverable:** laporan hasil evaluasi lengkap (metrik + confusion matrix + insight) untuk keempat skenario.
 
