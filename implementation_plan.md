@@ -199,7 +199,7 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
   - H1: preprocessing yang benar (split sebelum normalisasi) mencegah data leakage — verifikasi lewat metodologi, bukan angka.
   - H2: latent representation Autoencoder cukup menyimpan pola antar kelas — verifikasi lewat performa LightGBM di atas latent vs (opsional) baseline tanpa Autoencoder.
   - H3: skenario imbalance handling memengaruhi recall/F1 kelas minoritas — verifikasi lewat Tabel perbandingan Phase 7.
-- [ ] (Opsional, kalau supervisor minta pembanding) tambahkan baseline: LightGBM langsung di 69 fitur asli (tanpa Autoencoder) untuk membuktikan manfaat reduksi dimensi.
+- [x] (Opsional, kalau supervisor minta pembanding) tambahkan baseline: LightGBM langsung di 69 fitur asli (tanpa Autoencoder) untuk membuktikan manfaat reduksi dimensi.
 
 **Deliverable:** draft bagian hasil & pembahasan siap ditulis di laporan final.
 

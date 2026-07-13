@@ -390,6 +390,9 @@ def build_qualitative_analysis(
     s4_minority = minority_averages[
         minority_averages["scenario"] == "s4_downsampling"
     ].iloc[0]
+    best_f1_by_class = {
+        result["class_name"]: result["best_f1"] for result in best_by_class
+    }
     key_findings = [
         (
             f"S1 has the highest accuracy ({s1['accuracy']:.4f}) but a substantially lower "
@@ -410,7 +413,8 @@ def build_qualitative_analysis(
         ),
         (
             "DoS and DDoS remain the least reliable minority classes across all scenarios; "
-            "their best per-class F1-scores remain below 0.04."
+            f"their best per-class F1-scores are {best_f1_by_class['DoS']:.4f} and "
+            f"{best_f1_by_class['DDoS']:.4f}, respectively."
         ),
     ]
     analysis = {
