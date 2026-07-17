@@ -1,0 +1,44 @@
+{
+  "full_data_only": true,
+  "quick_run_artifacts_excluded": true,
+  "valid_rows": 5350583,
+  "train_rows": 4280466,
+  "test_rows": 1070117,
+  "feature_count": 69,
+  "latent_dim": 16,
+  "scenarios": [
+    "s1_none",
+    "s2_class_weight",
+    "s3_upsampling",
+    "s4_downsampling"
+  ],
+  "hypothesis_assessments": {
+    "H1": "Supported methodologically",
+    "H2": "Partially supported",
+    "H3": "Supported"
+  },
+  "optional_baseline_included": true,
+  "test_artifacts_unchanged": true,
+  "supplementary_diagnostics_included": [
+    "ae_variants",
+    "dataset_defect",
+    "merged9",
+    "tuning"
+  ],
+  "draft_path": "reports/phase9/chapter4_results_and_discussion.md",
+  "tables": {
+    "dataset_pipeline": "reports/phase9/tables/table_4_1_dataset_pipeline.csv",
+    "autoencoder_reconstruction": "reports/phase9/tables/table_4_2_autoencoder_reconstruction.csv",
+    "scenario_metrics": "reports/phase9/tables/table_4_3_scenario_metrics.csv",
+    "minority_metrics": "reports/phase9/tables/table_4_4_minority_class_metrics.csv",
+    "baseline": "reports/phase9/tables/table_4_5_representation_baseline.csv",
+    "hypotheses": "reports/phase9/tables/table_4_6_hypothesis_assessment.csv"
+  },
+  "figures": {
+    "autoencoder_loss": "reports/phase9/figures/figure_4_1_autoencoder_loss.png",
+    "scenario_metrics": "reports/phase9/figures/figure_4_2_scenario_metrics.png",
+    "minority_f1": "reports/phase9/figures/figure_4_3_minority_f1.png",
+    "s2_confusion": "reports/phase9/figures/figure_4_4_s2_confusion_matrix.png",
+    "representation_baseline": "reports/phase9/figures/figure_4_5_representation_baseline.png"
+  }
+}

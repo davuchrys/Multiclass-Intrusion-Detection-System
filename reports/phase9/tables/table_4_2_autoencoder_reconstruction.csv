@@ -1,0 +1,2 @@
+input_dim,latent_dim,best_epoch,best_validation_mse,train_reconstruction_mse,test_reconstruction_mse
+69,16,48,0.00010913831824187403,0.00011258973852168794,0.00011356514788172808

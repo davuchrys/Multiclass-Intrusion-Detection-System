@@ -1,0 +1,4 @@
+hypothesis,assessment,evidence
+H1,Supported methodologically,Split precedes normalization; scaler scope is train_only; imbalance handling uses training artifacts; test integrity hashes remain unchanged.
+H2,Partially supported,"Latent-16 reduces dimension by 76.81% and remains classifiable, but original-69 S2 macro F1 is 0.5406 versus 0.4249 for latent-16."
+H3,Supported,"S1 has the best accuracy, while S2 has the best macro recall/F1; per-class recall and confusion change materially across scenarios."

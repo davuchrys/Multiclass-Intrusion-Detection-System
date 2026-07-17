@@ -1,0 +1,2 @@
+raw_rows,valid_rows,invalid_rows_dropped,train_rows,test_rows,feature_count,split_strategy,scaler_fit_scope
+5351760,5350583,1177,4280466,1070117,69,80:20 stratified,train_only

@@ -194,8 +194,8 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 
 **Tujuan:** menyiapkan bahan Bab IV (Hasil dan Pembahasan) berdasarkan proposal ini.
 
-- [ ] Rangkum hasil eksperimen (tabel + grafik) untuk dimasukkan ke laporan.
-- [ ] Bandingkan hipotesis di proposal (1.4) dengan hasil aktual:
+- [x] Rangkum hasil eksperimen (tabel + grafik) untuk dimasukkan ke laporan.
+- [x] Bandingkan hipotesis di proposal (1.4) dengan hasil aktual:
   - H1: preprocessing yang benar (split sebelum normalisasi) mencegah data leakage — verifikasi lewat metodologi, bukan angka.
   - H2: latent representation Autoencoder cukup menyimpan pola antar kelas — verifikasi lewat performa LightGBM di atas latent vs (opsional) baseline tanpa Autoencoder.
   - H3: skenario imbalance handling memengaruhi recall/F1 kelas minoritas — verifikasi lewat Tabel perbandingan Phase 7.

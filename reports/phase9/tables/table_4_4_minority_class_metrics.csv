@@ -1,0 +1,21 @@
+scenario,class_name,precision,recall,f1_score,support,is_minority_focus,scenario_label
+s1_none,Backdoor,0.863736636688,0.937557561245,0.899134428546,5429,True,S1 - No handling
+s1_none,DDoS,0.0208333333333,0.025,0.0227272727273,40,True,S1 - No handling
+s1_none,DoS,0.0201342281879,0.103448275862,0.0337078651685,29,True,S1 - No handling
+s1_none,MITM,0.00689655172414,0.0970873786408,0.0128783000644,103,True,S1 - No handling
+s1_none,Ransomware,0.114590747331,0.157843137255,0.132783505155,1020,True,S1 - No handling
+s2_class_weight,Backdoor,0.964733261726,0.992632160619,0.978483885611,5429,True,S2 - Class weight
+s2_class_weight,DDoS,0.020202020202,0.05,0.0287769784173,40,True,S2 - Class weight
+s2_class_weight,DoS,0,0,0,29,True,S2 - Class weight
+s2_class_weight,MITM,0.0858505564388,0.52427184466,0.147540983607,103,True,S2 - Class weight
+s2_class_weight,Ransomware,0.582995951417,0.988235294118,0.733357584576,1020,True,S2 - Class weight
+s3_upsampling,Backdoor,0.973318911123,0.994474120464,0.983782798834,5429,True,S3 - Upsampling
+s3_upsampling,DDoS,0,0,0,40,True,S3 - Upsampling
+s3_upsampling,DoS,0.0144927536232,0.0344827586207,0.0204081632653,29,True,S3 - Upsampling
+s3_upsampling,MITM,0.078869047619,0.514563106796,0.136774193548,103,True,S3 - Upsampling
+s3_upsampling,Ransomware,0.586532782044,0.973529411765,0.732030962035,1020,True,S3 - Upsampling
+s4_downsampling,Backdoor,0.818960244648,0.986553693129,0.894978694962,5429,True,S4 - Downsampling
+s4_downsampling,DDoS,0.000987654320988,0.1,0.00195599022005,40,True,S4 - Downsampling
+s4_downsampling,DoS,0.0032414910859,0.137931034483,0.00633412509897,29,True,S4 - Downsampling
+s4_downsampling,MITM,0.00296468161897,0.446601941748,0.00589026186055,103,True,S4 - Downsampling
+s4_downsampling,Ransomware,0.0560322185257,0.941176470588,0.105767641712,1020,True,S4 - Downsampling
