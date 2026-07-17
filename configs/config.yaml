@@ -188,3 +188,13 @@ baseline:
   scenarios:
     - s1_none
     - s2_class_weight
+
+pipeline:
+  quick_run:
+    root_dir: data/interim/quick_run
+    train_rows: 100000
+    test_rows: 25000
+    minimum_train_rows_per_class: 100
+    minimum_test_rows_per_class: 20
+    autoencoder_epochs: 5
+    lightgbm_estimators: 50

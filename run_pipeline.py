@@ -446,6 +446,40 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sample-size", type=int, default=100_000)
     parser.add_argument("--chunk-size", type=int, default=100_000)
     parser.add_argument(
+        "--quick-run",
+        action="store_true",
+        help="Run an isolated stratified smoke test without replacing full-data artifacts.",
+    )
+    parser.add_argument(
+        "--quick-train-rows",
+        type=int,
+        default=None,
+        help="Override the configured quick-run training sample size.",
+    )
+    parser.add_argument(
+        "--quick-test-rows",
+        type=int,
+        default=None,
+        help="Override the configured quick-run test sample size.",
+    )
+    parser.add_argument(
+        "--quick-epochs",
+        type=int,
+        default=None,
+        help="Override the configured quick-run Autoencoder epochs.",
+    )
+    parser.add_argument(
+        "--quick-estimators",
+        type=int,
+        default=None,
+        help="Override the configured quick-run LightGBM estimators.",
+    )
+    parser.add_argument(
+        "--quick-force",
+        action="store_true",
+        help="Regenerate the quick sample and rebuild its Phase 3-7 artifacts.",
+    )
+    parser.add_argument(
         "--log-level",
         default="INFO",
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
@@ -457,6 +491,33 @@ def main() -> None:
     """Run the pipeline from the command line."""
     args = parse_args()
     configure_logging(args.log_level)
+    quick_options_used = any(
+        value is not None
+        for value in (
+            args.quick_train_rows,
+            args.quick_test_rows,
+            args.quick_epochs,
+            args.quick_estimators,
+        )
+    ) or args.quick_force
+    if quick_options_used and not args.quick_run:
+        raise ValueError("Quick-run options require --quick-run.")
+    if args.quick_run:
+        if args.force_phase:
+            raise ValueError("Use --quick-force instead of --force-phase with --quick-run.")
+        from src.quick_run import run_quick_pipeline
+
+        run_quick_pipeline(
+            config_path=args.config,
+            scenario=args.scenario,
+            train_rows=args.quick_train_rows,
+            test_rows=args.quick_test_rows,
+            autoencoder_epochs=args.quick_epochs,
+            lightgbm_estimators=args.quick_estimators,
+            device=args.device,
+            force=args.quick_force,
+        )
+        return
     run_pipeline(
         config_path=args.config,
         scenario=args.scenario,

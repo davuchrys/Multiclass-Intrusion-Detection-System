@@ -56,6 +56,7 @@ def validate_labels(
     y_pred: np.ndarray,
     num_classes: int,
     scenario: str,
+    require_all_predicted_classes: bool = True,
 ) -> None:
     """Validate shape and class range before metric calculation."""
     if y_true.ndim != 1 or y_pred.ndim != 1 or y_true.shape != y_pred.shape:
@@ -64,7 +65,10 @@ def validate_labels(
     if not np.array_equal(np.unique(y_true), expected_classes):
         raise ValueError("y_test does not contain every configured class.")
     predicted_classes = np.unique(y_pred)
-    if not np.array_equal(predicted_classes, expected_classes):
+    if require_all_predicted_classes and not np.array_equal(
+        predicted_classes,
+        expected_classes,
+    ):
         raise ValueError(
             f"{scenario} predictions do not contain every configured class: "
             f"{predicted_classes.tolist()}."
@@ -193,7 +197,16 @@ def evaluate_scenario(
         for name, _ in sorted(class_mapping.items(), key=lambda item: int(item[1]))
     ]
     labels = list(range(num_classes))
-    validate_labels(y_true, y_pred, num_classes, canonical_scenario)
+    quick_run_active = bool(
+        config.get("pipeline", {}).get("quick_run", {}).get("active", False)
+    )
+    validate_labels(
+        y_true,
+        y_pred,
+        num_classes,
+        canonical_scenario,
+        require_all_predicted_classes=not quick_run_active,
+    )
 
     aggregate = macro_metrics(y_true, y_pred)
     per_class_report = classification_report(
@@ -215,8 +228,13 @@ def evaluate_scenario(
 
     report = {
         "scenario": canonical_scenario,
+        "quick_run": quick_run_active,
         "test_rows": int(y_true.shape[0]),
         "class_names": class_names,
+        "predicted_classes": np.unique(y_pred).astype(int).tolist(),
+        "all_configured_classes_predicted": bool(
+            np.array_equal(np.unique(y_pred), np.arange(num_classes))
+        ),
         "aggregate_metrics": aggregate,
         "classification_report": per_class_report,
         "confusion_matrix": matrix.astype(int).tolist(),
