@@ -65,13 +65,10 @@ def _scenario_names(scenario: str, configured: list[str]) -> list[str]:
 
 
 def _expand_force_phases(requested: set[int]) -> set[int]:
-    """Propagate forced rebuilds to phases that consume changed artifacts."""
+    """Propagate each forced rebuild through every downstream phase."""
     effective: set[int] = set()
     for phase in requested:
-        if phase == 1:
-            effective.add(1)
-        else:
-            effective.update(range(phase, 8))
+        effective.update(range(phase, 8))
     return effective
 
 
@@ -190,8 +187,11 @@ def run_pipeline(
     invalid_phases = requested_force - set(PHASE_NAMES)
     if invalid_phases:
         raise ValueError(f"Invalid force phases: {sorted(invalid_phases)}")
-    if skip_preprocessing and 2 in requested_force:
-        raise ValueError("--skip-preprocessing cannot be combined with --force-phase 2.")
+    effective_force = _expand_force_phases(requested_force)
+    if skip_preprocessing and 2 in effective_force:
+        raise ValueError(
+            "--skip-preprocessing cannot be combined with a forced Phase 2 rebuild."
+        )
 
     project_root = find_project_root()
     config = load_config(config_path)
@@ -216,7 +216,6 @@ def run_pipeline(
             "Phase 2 was skipped, but its required artifacts are incomplete: "
             f"{missing}"
         )
-    effective_force = _expand_force_phases(requested_force)
     records: list[dict[str, Any]] = []
     started_at = datetime.now().astimezone().isoformat(timespec="seconds")
     pipeline_started = time.perf_counter()
