@@ -179,9 +179,9 @@ Struktur ini mengikuti pemisahan tahapan yang sudah digambarkan di Gambar 3.1 (S
 
 **Tujuan:** satukan Phase 1–7 jadi satu pipeline yang bisa dijalankan ulang penuh.
 
-- [ ] `run_pipeline.py`: entry point yang menjalankan seluruh tahap sesuai `configs/config.yaml`, mengikuti Algorithm 1 di proposal (hlm. 36).
-- [ ] Argumen CLI: `--scenario s1|s2|s3|s4|all`, `--skip-preprocessing`, dst. untuk mempercepat iterasi eksperimen.
-- [ ] Logging tiap tahap (mis. pakai `logging` module) supaya progres & durasi tiap fase kelihatan (dataset besar, ~5.3 juta baris → perlu diperhatikan waktu training).
+- [x] `run_pipeline.py`: entry point yang menjalankan seluruh tahap sesuai `configs/config.yaml`, mengikuti Algorithm 1 di proposal (hlm. 36).
+- [x] Argumen CLI: `--scenario s1|s2|s3|s4|all`, `--skip-preprocessing`, dst. untuk mempercepat iterasi eksperimen.
+- [x] Logging tiap tahap (mis. pakai `logging` module) supaya progres & durasi tiap fase kelihatan (dataset besar, ~5.3 juta baris → perlu diperhatikan waktu training).
 - [ ] (Opsional) cek performa/waktu — jika dataset terlalu berat untuk laptop, pertimbangkan subsampling awal untuk iterasi cepat sebelum full run.
 
 **Deliverable:** satu perintah (`python run_pipeline.py --scenario all`) menjalankan semuanya dari raw data sampai hasil evaluasi.
