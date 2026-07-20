@@ -313,6 +313,78 @@ Algorithm~\ref{alg:ae_lgbm_pipeline} summarizes the shared modeling path after p
 \end{algorithmic}
 \end{algorithm}
 
+\begin{figure*}[t]
+\centering
+\begin{minipage}[c]{0.43\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/s2_confusion_matrix.png}
+    \footnotesize (a) S2 row-normalized confusion matrix
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.53\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/minority_f1.png}
+    \footnotesize (b) Minority-class F1 by scenario
+\end{minipage}
+\caption{Class-level results from the full-data experiment. Class weighting improves several rare attacks, but DoS and DDoS remain mutually confused.}
+\label{fig:class_results}
+\end{figure*}
+
+\section{Results and Discussion}
+
+\subsection{Scenario-Level Performance}
+Table~\ref{tab:scenario_results} reports full-data results on the unchanged 1,070,117-row test set. S1 achieved the highest accuracy (0.8436) but only 0.3142 macro F1. S2 produced the best macro recall (0.5620) and macro F1 (0.4249). S3 differed from S2 by only 0.0017 macro F1 while requiring 5.07 times as much classifier training time. This similarity follows from random duplication and balanced weighting giving tree training nearly identical relative class contributions. S4 had the lowest macro F1 (0.2923) after retaining only 116 training samples per class.
+
+\begin{table}[t]
+\caption{Full-Data Performance by Imbalance Scenario}
+\label{tab:scenario_results}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\renewcommand{\arraystretch}{0.96}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{ID} & \textbf{Acc.} & \textbf{Macro P} & \textbf{Macro R} & \textbf{Macro F1} & \textbf{Train (s)} \\
+\midrule
+S1 & 0.8436 & 0.3204 & 0.3376 & 0.3142 & 104.98 \\
+S2 & 0.7285 & 0.4106 & 0.5620 & 0.4249 & 104.91 \\
+S3 & 0.7278 & 0.4103 & 0.5580 & 0.4233 & 532.18 \\
+S4 & 0.6155 & 0.3050 & 0.4900 & 0.2923 &   1.64 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Class-Level Effects}
+Imbalance handling helped several rare attacks but did not improve every class. From S1 to S2, F1 rose from 0.8991 to 0.9785 for Backdoor, from 0.1328 to 0.7334 for Ransomware, and from 0.0129 to 0.1475 for MITM. However, all 29 DoS test flows were classified as DDoS under S2, while 27 of 40 DDoS flows were classified as DoS; both classes remained below 0.04 F1 in every scenario. The trade-off also affected a majority class: XSS recall fell from 0.9241 under S1 to 0.4898 under S2. S2 is therefore preferred under the macro-metric objective, not for every class or operating requirement. Fig.~\ref{fig:class_results} summarizes these class-level effects.
+
+\subsection{Latent Versus Original Features}
+Table~\ref{tab:representation_results} tests whether the 16-dimensional latent representation retains the discriminative information in the 69 normalized features. Under S2, the original features increased macro recall from 0.5620 to 0.6483 and macro F1 from 0.4249 to 0.5406. The latent representation reduced dimensionality by 76.81\% and shortened S2 classifier training by 49.7\%, but this timing excludes Autoencoder training. H2 is therefore partially supported: the latent features remain useful and compact, but they do not preserve all information needed for classification and should not be claimed to outperform the original features.
+
+\begin{table}[t]
+\caption{Latent and Original-Feature Baselines}
+\label{tab:representation_results}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\renewcommand{\arraystretch}{0.96}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+\textbf{Features} & \textbf{ID} & \textbf{Acc.} & \textbf{Macro R} & \textbf{Macro F1} & \textbf{Train (s)} \\
+\midrule
+Latent-16   & S1 & 0.8436 & 0.3376 & 0.3142 & 104.98 \\
+Latent-16   & S2 & 0.7285 & 0.5620 & 0.4249 & 104.91 \\
+Original-69 & S1 & 0.8531 & 0.3401 & 0.3373 & 243.98 \\
+Original-69 & S2 & 0.7881 & 0.6483 & 0.5406 & 208.44 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{DoS--DDoS Dataset Limitation}
+The persistent DoS--DDoS failure is not explained by compression alone because the original-feature baseline did not resolve it. A post-hoc data-quality audit found 145 groups whose 69 features and identifiers were identical but whose labels contradicted each other: one DoS row and one DDoS row per group. These groups contain every DoS record and 71.78\% of DDoS records. No deterministic classifier can assign different labels to identical inputs, so this defect imposes a performance limit and is treated as a dataset limitation rather than a methodological contribution.
+
+\subsection{Relation to Published Results}
+The latent S2 macro F1 of 0.4249 exceeds the 0.392 unaugmented result reported by Ma et al., while the original-69 S2 baseline reaches 0.5406 compared with their 0.506 FSLLM result \cite{Ma2025FSLLM}. These values are indicative rather than head-to-head: their study uses a 70:30 split and 13 selected features, whereas this work uses an 80:20 stratified split and all 69 cleaned features.
+
 \bibliographystyle{IEEEtran}
 \bibliography{References}
 
