@@ -7,8 +7,8 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
-\usepackage{balance}
 \usepackage{booktabs}
+\usepackage{flushend}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{textcomp}
@@ -223,10 +223,10 @@ The experimental workflow and model architecture are shown in Figs.~\ref{fig:met
 \end{figure*}
 
 \subsection{Dataset}
-The CIC-ToN-IoT CSV contains 5,351,760 network-flow records and 85 columns. The \texttt{Attack} field defines one benign and nine attack classes. Table~\ref{tab:dataset_distribution} shows the severe skew: Benign and XSS account for 87.16\% of all flows, whereas DDoS and DoS contain only 202 and 145 records, respectively \cite{Sarhan2022,Ma2025FSLLM}.
+The raw CIC-ToN-IoT CSV contains 5,351,760 network-flow records and 85 columns. The \texttt{Attack} field defines one benign and nine attack classes. Table~\ref{tab:dataset_distribution} reports the pre-cleaning distribution and shows the severe skew: Benign and XSS account for 87.16\% of all flows, whereas DDoS and DoS contain only 202 and 145 records, respectively \cite{Sarhan2022,Ma2025FSLLM}.
 
 \begin{table}[t]
-\caption{CIC-ToN-IoT Dataset Summary and Class Distribution}
+\caption{Raw CIC-ToN-IoT Summary and Class Distribution}
 \label{tab:dataset_distribution}
 \centering
 \footnotesize
@@ -256,7 +256,7 @@ XSS        & 2,149,308 & 40.161 \\
 Identifier and metadata columns, including flow identifiers, endpoint addresses, and timestamps, were excluded together with empirically constant or uninformative fields, leaving 69 numerical features. Removing 1,177 rows with invalid numerical values left 5,350,583 observations. Label encoding was followed by a stratified 80:20 split, producing 4,280,466 training and 1,070,117 test rows. MinMax parameters were fitted only on the training partition and then applied unchanged to both splits. Resampling and class weighting were likewise restricted to training data \cite{Bouke2023,Manocchio2025}.
 
 \subsection{Autoencoder}
-The symmetric Autoencoder maps 69 normalized inputs through dense layers of 64 and 32 units to a 16-unit latent layer, then reconstructs them through 32 and 64 units to a 69-unit output. Hidden and latent layers use ReLU; the output uses sigmoid. Training uses mean squared error, Adam, shuffled mini-batches, and the checkpoint with the lowest validation loss. Fig.~\ref{fig:ae_lgbm_architecture} shows both reconstruction and classification paths.
+The symmetric Autoencoder maps 69 normalized inputs through dense layers of 64 and 32 units to a 16-unit latent layer, then reconstructs them through 32 and 64 units to a 69-unit output. Hidden and latent layers use ReLU; the output uses sigmoid. Training uses mean squared error and Adam for 50 epochs with a batch size of 4096 and a learning rate of 0.001. Mini-batches are reshuffled each epoch, and the checkpoint with the lowest validation loss is retained. Fig.~\ref{fig:ae_lgbm_architecture} shows both reconstruction and classification paths.
 
 \subsection{Latent Extraction and Imbalance Scenarios}
 The selected encoder transforms both normalized splits into 16-dimensional arrays, denoted by $Z_{\mathrm{train}}$ and $Z_{\mathrm{test}}$. Only $Z_{\mathrm{train}}$ and $y_{\mathrm{train}}$ are modified by the scenarios in Table~\ref{tab:imbalance_scenarios}; $Z_{\mathrm{test}}$ remains byte-identical throughout. Scenario S2 uses the balanced weights defined in \eqref{eq:class_weight}.
@@ -281,7 +281,7 @@ S4 & Random downsampling to 116 samples per class \\
 \end{table}
 
 \subsection{LightGBM and Evaluation}
-Each scenario trains LightGBM with a multiclass objective, 10 classes, 200 estimators, and deterministic seed 42. The fixed estimator count is used without an internal validation split or early stopping. Predictions on the unchanged test set are evaluated using accuracy, macro precision, macro recall, macro F1-score, per-class scores, and a $10\times10$ confusion matrix \cite{Liu2021LightGBM,Wakili2025}.
+Each scenario trains LightGBM with a multiclass objective, 10 classes, 200 estimators, a learning rate of 0.05, at most 31 leaves per tree, and deterministic seed 42. The fixed estimator count is used without an internal validation split or early stopping. Predictions on the unchanged test set are evaluated using accuracy, macro precision, macro recall, macro F1-score, per-class scores, and a $10\times10$ confusion matrix \cite{Liu2021LightGBM,Wakili2025}.
 
 \subsection{Core Algorithm}
 Algorithm~\ref{alg:ae_lgbm_pipeline} summarizes the shared modeling path after preprocessing. The class-weight expression is referenced rather than repeated.
@@ -313,7 +313,6 @@ Algorithm~\ref{alg:ae_lgbm_pipeline} summarizes the shared modeling path after p
 \end{algorithmic}
 \end{algorithm}
 
-\balance
 \bibliographystyle{IEEEtran}
 \bibliography{References}
 
