@@ -48,14 +48,14 @@ ketat. Bagian di bawah menandai mana yang WAJIB vs OPSIONAL.
 
 **Target:** ~0.75 halaman, 3–4 paragraf.
 
-- [ ] Paragraf 1: latar IoT + kebutuhan NIDS multiclass (padatkan §1.1 Background).
-- [ ] Paragraf 2: tiga tantangan CIC-ToN-IoT (fitur banyak, redundansi, imbalance) +
+- [x] Paragraf 1: latar IoT + kebutuhan NIDS multiclass (padatkan §1.1 Background).
+- [x] Paragraf 2: tiga tantangan CIC-ToN-IoT (fitur banyak, redundansi, imbalance) +
   posisi Autoencoder sebagai feature extractor dan LightGBM sebagai classifier.
-- [ ] Paragraf 3: kontribusi paper (turunkan dari Objectives §1.3), tulis sebagai
+- [x] Paragraf 3: kontribusi paper (turunkan dari Objectives §1.3), tulis sebagai
   bullet/kalimat: (1) pipeline AE+LightGBM leakage-free di CIC-ToN-IoT penuh,
   (2) perbandingan 4 skenario imbalance dengan metrik makro, (3) analisis
   representasi laten vs fitur asli.
-- [ ] Pangkas: Problem Formulation (§1.2), Hypotheses (§1.4), Scope (§1.5),
+- [x] Pangkas: Problem Formulation (§1.2), Hypotheses (§1.4), Scope (§1.5),
   Research Plan/Schedule (§1.6–1.7) → **tidak ada di paper**. Hipotesis boleh
   diselipkan 1 kalimat di akhir intro kalau perlu.
 

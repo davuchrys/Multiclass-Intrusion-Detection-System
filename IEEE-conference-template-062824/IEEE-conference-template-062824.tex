@@ -69,18 +69,13 @@ component, formatting, style, styling, insert.
 \end{IEEEkeywords}
 
 \section{Introduction}
-This document is a model and instructions for \LaTeX.
-Please observe the conference page limits. For more information about how to become an IEEE Conference author or how to write your paper, please visit   IEEE Conference Author Center website: https://conferences.ieeeauthorcenter.ieee.org/.
+The rapid adoption of Internet of Things (IoT) devices has expanded the volume and diversity of network traffic while increasing the attack surface of connected environments. A network intrusion detection system (NIDS) must therefore move beyond binary decisions between benign and malicious traffic and identify specific attack categories so that security responses can be prioritized appropriately. The CIC-ToN-IoT dataset supports this multiclass setting by providing labeled IoT network flows, but it also reflects practical challenges in machine-learning-based intrusion detection, including heterogeneous features and highly unequal class frequencies \cite{Sarhan2022,Ma2025FSLLM}.
 
-\subsection{Maintaining the Integrity of the Specifications}
+Three issues make this task particularly difficult. First, high-dimensional traffic features may contain redundant or weakly informative information, increasing model complexity and obscuring discriminative patterns. Second, severe class imbalance can cause a classifier to favor majority classes; consequently, high accuracy may coexist with poor detection of rare attacks. Third, an incorrect preprocessing order can leak information from the test partition into model training and produce optimistic estimates of generalization performance \cite{Bouke2023,Manocchio2025}. Nonlinear feature extraction with an Autoencoder can provide a compact latent representation \cite{Zhang2023SIGMOD,Li2024FeatureReduction}, while Light Gradient Boosting Machine (LightGBM) offers efficient classification for tabular intrusion data \cite{Liu2021LightGBM,Munawar2025,Wakili2025}.
 
-The IEEEtran class file is used to format your paper and style the text. All margins, 
-column widths, line spaces, and text fonts are prescribed; please do not 
-alter them. You may note peculiarities. For example, the head margin
-measures proportionately more than is customary. This measurement 
-and others are deliberate, using specifications that anticipate your paper 
-as one part of the entire proceedings, and not as an independent document. 
-Please do not revise any of the current designations.
+This study develops a leakage-controlled Autoencoder--LightGBM pipeline using the complete CIC-ToN-IoT data available for the experiment. After invalid and non-informative fields are removed, 69 validated traffic features are divided using a stratified 80:20 train--test split, and MinMax normalization is fitted exclusively on the training partition. The Autoencoder compresses these features into a 16-dimensional latent representation, which is classified by LightGBM under four training-data treatments: no imbalance handling, class weighting, random upsampling, and random downsampling. The original test distribution remains unchanged in every scenario, and a LightGBM baseline trained directly on the 69 normalized features is included to assess the information retained by the latent representation.
+
+The contributions of this work are threefold. First, it implements an end-to-end multiclass NIDS pipeline on the full dataset with explicit controls against preprocessing and test-set leakage. Second, it compares four imbalance-handling scenarios using accuracy, macro precision, macro recall, macro F1-score, per-class metrics, and confusion matrices, enabling performance on minority attacks to be examined directly. Third, it contrasts the 16-feature latent representation with the original 69-feature representation, quantifying the trade-off between dimensionality reduction and discriminative performance rather than assuming that compression necessarily improves classification.
 
 \section{Prepare Your Paper Before Styling}
 Before you begin to format your paper, first write and save the content as a 
