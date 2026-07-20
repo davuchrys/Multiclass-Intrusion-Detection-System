@@ -79,7 +79,7 @@ ketat. Bagian di bawah menandai mana yang WAJIB vs OPSIONAL.
   FS-FE), semua persamaan (2.1–2.18), Gambar 2.1 (arsitektur AE), Gambar 2.2
   (ilustrasi confusion matrix), Tabel 2.5 (class index mapping). Konsep-konsep ini
   cukup disebut satu kalimat + sitasi.
-- [ ] Boleh sisakan **1 persamaan** paling relevan kalau mau: bobot kelas
+- [x] Boleh sisakan **1 persamaan** paling relevan kalau mau: bobot kelas
   Eq. (2.8) `w_c = n/(C·n_c)`, karena dipakai di eksperimen. Sisanya buang.
 
 **Aset:** tidak ada gambar (semua gambar Bab 2 dibuang).
