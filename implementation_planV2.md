@@ -233,9 +233,9 @@ Sumber utama: `reports/phase9/chapter4_results_and_discussion.md` (draft lengkap
 
 ## References
 
-- [ ] Salin `References.bib` dari folder proposal **apa adanya** ke folder template
+- [x] Salin `References.bib` dari folder proposal **apa adanya** ke folder template
   IEEE. 25 entri, tidak diubah.
-- [ ] Set `\bibliographystyle{IEEEtran}` (template IEEE sudah menyediakan
+- [x] Set `\bibliographystyle{IEEEtran}` (template IEEE sudah menyediakan
   `IEEEtran.cls`; untuk bibliografi biasanya `IEEEtran` bst).
 - [ ] **Penomoran:** proposal pakai `unsrt` + `\nocite{*}` → semua 25 ref muncul,
   bernomor urut kemunculan. Di paper:
