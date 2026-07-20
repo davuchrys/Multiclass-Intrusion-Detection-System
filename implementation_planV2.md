@@ -68,14 +68,14 @@ ketat. Bagian di bawah menandai mana yang WAJIB vs OPSIONAL.
 
 **Target:** ~0.75 halaman. Ini bagian yang paling banyak dipangkas.
 
-- [ ] Ringkas jadi 2–3 paragraf naratif:
+- [x] Ringkas jadi 2–3 paragraf naratif:
   - IDS/NIDS + signature vs anomaly, binary vs multiclass (1 paragraf, sitasi
     [11][14][17]).
   - Feature reduction: feature selection vs feature extraction, posisi Autoencoder;
     sebut PCA/SAE/SSAE singkat (1 paragraf, sitasi [6][13][5][23]).
   - LightGBM & boosting untuk data tabular NIDS + penanganan imbalance
     (1 paragraf, sitasi [8][9][10][2]).
-- [ ] **Pangkas total:** Tabel 2.1–2.4 (perbandingan IDS/HIDS-NIDS/binary-multiclass/
+- [x] **Pangkas total:** Tabel 2.1–2.4 (perbandingan IDS/HIDS-NIDS/binary-multiclass/
   FS-FE), semua persamaan (2.1–2.18), Gambar 2.1 (arsitektur AE), Gambar 2.2
   (ilustrasi confusion matrix), Tabel 2.5 (class index mapping). Konsep-konsep ini
   cukup disebut satu kalimat + sitasi.
