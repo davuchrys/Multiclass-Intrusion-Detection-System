@@ -333,7 +333,7 @@ Algorithm~\ref{alg:ae_lgbm_pipeline} summarizes the shared modeling path after p
 \section{Results and Discussion}
 
 \subsection{Scenario-Level Performance}
-Table~\ref{tab:scenario_results} reports full-data results on the unchanged 1,070,117-row test set. S1 achieved the highest accuracy (0.8436) but only 0.3142 macro F1. S2 produced the best macro recall (0.5620) and macro F1 (0.4249). S3 differed from S2 by only 0.0017 macro F1 while requiring 5.07 times as much classifier training time. This similarity follows from random duplication and balanced weighting giving tree training nearly identical relative class contributions. S4 had the lowest macro F1 (0.2923) after retaining only 116 training samples per class.
+Table~\ref{tab:scenario_results} reports full-data results on the unchanged 1,070,117-row test set. S1 achieved the highest accuracy (0.8436) but only 0.3142 macro F1. S2 produced the best macro recall (0.5620) and macro F1 (0.4249). S3 differed from S2 by less than 0.002 macro F1 while requiring 5.07 times as much classifier training time. This similarity follows from random duplication and balanced weighting giving tree training nearly identical relative class contributions. S4 had the lowest macro F1 (0.2923) after retaining only 116 training samples per class.
 
 \begin{table}[t]
 \caption{Full-Data Performance by Imbalance Scenario}
