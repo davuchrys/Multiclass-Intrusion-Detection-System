@@ -222,7 +222,7 @@ Sumber utama: `reports/phase9/chapter4_results_and_discussion.md` (draft lengkap
 
 **Target:** ~0.3 halaman, 1 paragraf. Ambil dari draft §4.9 + Objectives.
 
-- [ ] Rangkum: pipeline AE+LightGBM leakage-free berhasil; S2 terbaik untuk macro
+- [x] Rangkum: pipeline AE+LightGBM leakage-free berhasil; S2 terbaik untuk macro
   metrics; H1 didukung metodologis, H3 didukung, H2 partially supported; catat
   keterbatasan DoS/DDoS. Sebut future work singkat (mis. latent-aware imbalance,
   atau perbaikan kualitas dataset).
@@ -237,7 +237,7 @@ Sumber utama: `reports/phase9/chapter4_results_and_discussion.md` (draft lengkap
   IEEE. 25 entri, tidak diubah.
 - [x] Set `\bibliographystyle{IEEEtran}` (template IEEE sudah menyediakan
   `IEEEtran.cls`; untuk bibliografi biasanya `IEEEtran` bst).
-- [ ] **Penomoran:** proposal pakai `unsrt` + `\nocite{*}` → semua 25 ref muncul,
+- [x] **Penomoran:** proposal pakai `unsrt` + `\nocite{*}` → semua 25 ref muncul,
   bernomor urut kemunculan. Di paper:
   - Kalau ingin **semua 25 ref tetap tampil** (aman, seperti proposal): pakai
     `\nocite{*}`.
@@ -247,7 +247,7 @@ Sumber utama: `reports/phase9/chapter4_results_and_discussion.md` (draft lengkap
   - ⚠️ Nomor [1]–[25] **tidak dijamin sama** dengan proposal karena urutan
     kemunculan berubah. Kalau pembimbing minta nomor persis sama, urutkan sitasi
     mengikuti urutan proposal atau atur manual. Isi/kunci sitasi tetap identik.
-- [ ] Ganti `\citep{}`/`\citet}` (natbib, dipakai proposal) → `\cite{}` (IEEE)
+- [x] Ganti `\citep{}`/`\citet}` (natbib, dipakai proposal) → `\cite{}` (IEEE)
   saat memindah teks.
 
 ---

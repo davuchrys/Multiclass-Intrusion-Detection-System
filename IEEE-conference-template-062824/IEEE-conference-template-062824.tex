@@ -64,13 +64,11 @@ email address or ORCID}
 \maketitle
 
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
-or Math in Paper Title or Abstract.
+Class imbalance and high-dimensional traffic features complicate multiclass intrusion detection in Internet of Things environments. This work evaluates a leakage-controlled Autoencoder--LightGBM pipeline on 5,351,760 CIC-ToN-IoT flows. After invalid rows and non-informative fields are removed, 69 numerical features are split using stratified sampling and scaled with training-only parameters. A symmetric Autoencoder compresses them to 16 latent features, and LightGBM is trained with no imbalance handling, balanced class weights, random upsampling, or random downsampling. On the unchanged 1,070,117-row test set, class weighting provides the best latent macro recall and macro F1, 0.5620 and 0.4249. No handling reaches 0.8436 accuracy but only 0.3142 macro F1. Random upsampling performs nearly identically at 5.07 times the classifier training cost. An original-69 baseline reaches 0.5406 macro F1, showing that 76.81 percent compression loses some discriminative information. Contradictory DoS/DDoS labels also limit class separability. Class weighting is therefore preferred for balanced latent-space detection, while compression remains an efficiency trade-off rather than an accuracy improvement.
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert.
+network intrusion detection, Internet of Things, Autoencoder, LightGBM, class imbalance, CIC-ToN-IoT
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -384,6 +382,9 @@ The persistent DoS--DDoS failure is not explained by compression alone because t
 
 \subsection{Relation to Published Results}
 The dataset paper reports RF and MLP experiments that classify flows only as attack or benign, so it does not provide a directly comparable 10-class score \cite{Sarhan2022}. Ma et al. provide a closer multiclass reference: the latent S2 macro F1 of 0.4249 exceeds their 0.392 unaugmented result, while the original-69 S2 baseline reaches 0.5406 compared with their 0.506 FSLLM result \cite{Ma2025FSLLM}. These values are indicative rather than head-to-head: their study uses a 70:30 split and 13 selected features, whereas this work uses an 80:20 stratified split and all 69 cleaned features.
+
+\section{Conclusion}
+This work presents a full-data, 10-class CIC-ToN-IoT pipeline that combines an Autoencoder with LightGBM while controlling data leakage. The train--test split precedes scaling, and imbalance handling is limited to training data, supporting H1 methodologically. Class weighting achieved the best latent macro recall and macro F1, whereas no handling retained the highest accuracy; this trade-off supports H3. Random duplication matched class weighting at greater training cost, while extreme downsampling discarded too much data. H2 is partially supported: latent-16 reduced dimensionality and classifier time, but original-69 achieved higher macro F1. Persistent DoS--DDoS confusion arose from contradictory labels on identical records, a dataset limitation. Future work should audit labels, test discriminative latent objectives, and validate the efficiency--performance trade-off on independent IoT intrusion datasets.
 
 \nocite{*}
 \bibliographystyle{IEEEtran}
