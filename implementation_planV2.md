@@ -91,28 +91,28 @@ ketat. Bagian di bawah menandai mana yang WAJIB vs OPSIONAL.
 
 **Target:** ~1.5 halaman. Inti paper — pertahankan yang esensial.
 
-- [ ] **III.A Dataset** — padatkan §3.2. Sebut: CIC-ToN-IoT, 5.351.760 baris,
+- [x] **III.A Dataset** — padatkan §3.2. Sebut: CIC-ToN-IoT, 5.351.760 baris,
   85 kolom, kolom `Attack` sebagai label, 10 kelas, imbalance ekstrem.
   - Aset: **Tabel** ringkas gabungan Tabel 3.1 (dataset summary) + Tabel 3.2
     (distribusi kelas). Ambil angka dari `results/metrics/class_distribution.csv`.
     Format ulang jadi 1 tabel kompak (kelas | jumlah | %).
-- [ ] **III.B Preprocessing** — padatkan §3.3. Tekankan urutan anti-leakage:
+- [x] **III.B Preprocessing** — padatkan §3.3. Tekankan urutan anti-leakage:
   drop identifier + quasi-constant → 69 fitur, stratified split 80:20, MinMaxScaler
   fit di train saja. Boleh sebut Tabel 3.3 (preprocessing strategy) dalam bentuk
   naratif, bukan tabel penuh.
-- [ ] **III.C Autoencoder** — padatkan §3.4. Arsitektur 69→64→32→**16**→32→64→69,
+- [x] **III.C Autoencoder** — padatkan §3.4. Arsitektur 69→64→32→**16**→32→64→69,
   ReLU, output Sigmoid, loss MSE, optimizer Adam.
   - Aset: **Gambar 3.2** (arsitektur AE+LightGBM) — WAJIB, ini jantung metode.
   - Aset opsional: Tabel 3.4 (spesifikasi layer) — bisa dilebur ke caption gambar
     untuk hemat tempat.
-- [ ] **III.D Latent Extraction + Imbalance Scenarios** — padatkan §3.5–3.6.
+- [x] **III.D Latent Extraction + Imbalance Scenarios** — padatkan §3.5–3.6.
   Sebut 16 fitur laten; empat skenario S1–S4 (Tabel 3.6).
   - Aset: **Tabel** skenario S1–S4 ringkas (skenario | perlakuan) — WAJIB, karena
     seluruh Bab 4 mengacu ke sini.
-- [ ] **III.E LightGBM + Evaluation** — padatkan §3.7–3.8. objective=multiclass,
+- [x] **III.E LightGBM + Evaluation** — padatkan §3.7–3.8. objective=multiclass,
   num_class=10, metrik: accuracy, macro P/R/F1, confusion matrix.
   - Aset opsional: Tabel 3.7 (config LightGBM) — boleh dibuang, sebut naratif saja.
-- [ ] **III.F Algoritma** — **Algorithm 1 WAJIB masuk** (dari §3.9), tampilkan
+- [x] **III.F Algoritma** — **Algorithm 1 WAJIB masuk** (dari §3.9), tampilkan
   utuh dengan `algorithm` + `algpseudocode` (paket ini sudah dipakai di proposal,
   salin lingkungannya). Algoritma makan ~0.3–0.4 hal di kolom ganda; kalau meluber,
   taruh sebagai `algorithm*` (selebar dua kolom) atau kecilkan sedikit dengan
@@ -162,7 +162,7 @@ ketat. Bagian di bawah menandai mana yang WAJIB vs OPSIONAL.
 **Target:** ~1.75 halaman. Semua angka & gambar SUDAH tersedia — tinggal pilih.
 Sumber utama: `reports/phase9/chapter4_results_and_discussion.md` (draft lengkap).
 
-- [ ] **IV.A Hasil per skenario (S1–S4)** — inti hasil.
+- [x] **IV.A Hasil per skenario (S1–S4)** — inti hasil.
   - Aset WAJIB: **Tabel 4.3** (`reports/phase9/tables/table_4_3_scenario_metrics.csv`)
     → accuracy, macro P/R/F1 per skenario. Konversi CSV ke tabel LaTeX `booktabs`.
   - Aset WAJIB: **Gambar** confusion matrix S2
@@ -170,18 +170,18 @@ Sumber utama: `reports/phase9/chapter4_results_and_discussion.md` (draft lengkap
     hasil paling informatif.
   - Narasi: S1 akurasi tertinggi tapi macro F1 terendah; S2 terbaik macro F1/recall;
     S2≈S3 (jelaskan ekuivalensi bobot); S4 terburuk. (Ambil dari draft §4.3.)
-- [ ] **IV.B Efek per kelas & trade-off** — dari draft §4.4.
+- [x] **IV.B Efek per kelas & trade-off** — dari draft §4.4.
   - Aset opsional: Tabel 4.4 (minority class) ATAU Gambar 4.3 (minority F1) —
     **pilih salah satu**, jangan dua-duanya (hemat tempat). Saran: Gambar 4.3.
   - Narasi kunci: XSS recall turun 0.9241→0.4898 di S2 (trade-off), Backdoor &
     Ransomware terbantu, DoS/DDoS tetap gagal.
-- [ ] **IV.C Representasi laten vs fitur asli (uji H2)** — dari draft §4.5.
+- [x] **IV.C Representasi laten vs fitur asli (uji H2)** — dari draft §4.5.
   - Aset WAJIB: **Tabel 4.5**
     (`reports/phase9/tables/table_4_5_representation_baseline.csv`) → latent-16 vs
     original-69. Ini bukti kunci: original-69 S2 macro F1 0.5406 > latent-16 0.4249.
   - Narasi: H2 partially supported; AE memberi kompresi 76.8% tapi tidak
     mempertahankan semua info diskriminatif.
-- [ ] **IV.D Diskusi cacat dataset DoS/DDoS** — dari draft §4.7 (posisikan sebagai
+- [x] **IV.D Diskusi cacat dataset DoS/DDoS** — dari draft §4.7 (posisikan sebagai
   **diskusi/limitasi**, bukan kontribusi — sesuai arahan pembimbing).
   - Narasi: 145 grup fitur identik berlabel ganda DoS/DDoS (100% DoS, 71.8% DDoS);
     batas teoretis; menjelaskan kegagalan. Angka dari
@@ -189,7 +189,7 @@ Sumber utama: `reports/phase9/chapter4_results_and_discussion.md` (draft lengkap
   - Aset opsional (kalau muat): tabel kecil 2–3 baris contoh Flow ID identik dari
     `results/metrics/dataset_label_conflicts.md` bagian "Examples". Kalau tidak
     muat, cukup naratif.
-- [ ] **IV.E (Opsional) Perbandingan penelitian terkait** — dari
+- [x] **IV.E (Opsional) Perbandingan penelitian terkait** — dari
   `results/metrics/literature_comparison.md`.
   - Narasi: pipeline (macro F1 0.4249) > baseline no-augmentation Ma et al. [2]
     (0.392); LightGBM fitur penuh (0.5436) > FSLLM [2] (0.506). **Wajib sertakan
